@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterMovement : BaseMonoBehaviour
+public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovement
 {
     [Header("References")]
     [SerializeField] protected Rigidbody2D _rigidbody2D;
@@ -9,17 +9,69 @@ public class CharacterMovement : BaseMonoBehaviour
     public Transform Character => _character;
     [SerializeField] protected Collider2D _collider2D;
     public Collider2D Collider2D => _collider2D;
-    [Header("Setting")]
-    [SerializeField] protected float _moveSpeed;
+    [Header("Movement")]
+    [SerializeField] protected float _moveSpeed = 6f;
     public float MoveSpeed => _moveSpeed;
-    [SerializeField] protected float _jumpForce;
+    [SerializeField] protected float _jumpForce = 12f;
     public float JumpForce => _jumpForce;
+    [Header("Ground Check")]
+    [SerializeField] protected Transform _groundCheckPoint;
+    [SerializeField] protected Vector2 _groundCheckSize = new Vector2(0.8f, 0.12f);
+    [SerializeField] protected LayerMask _groundLayer;
+
+    protected bool _isFacingRight = true;
+    public Vector2 Velocity => this._rigidbody2D == null ? Vector2.zero : this._rigidbody2D.linearVelocity;
+    public bool IsFacingRight => this._isFacingRight;
+    public bool IsGrounded => this.CheckGrounded();
+    public bool CanJump => this.IsGrounded;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadRigibody();
         this.LoadTransformChar();
         this.LoadColider();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        // Movement is driven by Move so Player, Enemy AI, or teleport/flying variants can decide intent elsewhere.
+    }
+    public virtual void Move(Vector2 direction)
+    {
+        if (this._rigidbody2D == null) return;
+
+        Vector2 normalizedDirection = direction.sqrMagnitude > 1f ? direction.normalized : direction;
+        this._rigidbody2D.linearVelocity = new Vector2(normalizedDirection.x * this._moveSpeed, this._rigidbody2D.linearVelocity.y);
+        this.FaceMoveDirection(normalizedDirection.x);
+    }
+    public virtual void Jump()
+    {
+        Debug.Log($"CanJump: {CanJump}");
+        if (!this.CanJump || this._rigidbody2D == null) return;
+        this._rigidbody2D.linearVelocity = new Vector2(this._rigidbody2D.linearVelocity.x, this._jumpForce);
+    }
+    protected virtual bool CheckGrounded()
+    {
+        Vector2 checkPosition = this._groundCheckPoint == null ? this.transform.position : this._groundCheckPoint.position;
+        return Physics2D.OverlapBox(checkPosition, this._groundCheckSize, 0f, this._groundLayer) != null;
+    }
+    protected virtual void FaceMoveDirection(float horizontalDirection)
+    {
+        if (Mathf.Approximately(horizontalDirection, 0f)) return;
+
+        bool shouldFaceRight = horizontalDirection > 0f;
+        if (shouldFaceRight == this._isFacingRight) return;
+
+        this._isFacingRight = shouldFaceRight;
+        Vector3 localScale = this._character.localScale;
+        localScale.x = Mathf.Abs(localScale.x) * (this._isFacingRight ? 1f : -1f);
+        this._character.localScale = localScale;
+    }
+    public virtual void StopHorizontal()
+    {
+        if (this._rigidbody2D == null) return;
+        this._rigidbody2D.linearVelocity = new Vector2(0f, this._rigidbody2D.linearVelocity.y);
     }
     protected virtual void LoadRigibody()
     {
@@ -35,5 +87,16 @@ public class CharacterMovement : BaseMonoBehaviour
     {
         if (this._collider2D != null) return;
         this._collider2D = transform.GetComponentInParent<Collider2D>();
+    }
+    protected virtual void OnDrawGizmosSelected()
+    {
+        Vector2 checkPosition = this._groundCheckPoint == null ? this.transform.position : this._groundCheckPoint.position;
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(checkPosition, this._groundCheckSize);
+    }
+
+    public void Teleport(Vector2 worldPosition)
+    {
+        throw new System.NotImplementedException();
     }
 }
