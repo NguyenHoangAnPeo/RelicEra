@@ -7,5 +7,4 @@ public interface IMovementMotor
 
     void Move(Vector2 direction);
     void StopHorizontal();
-    void Teleport(Vector2 worldPosition);
 }

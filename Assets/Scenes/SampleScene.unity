@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17eddde0b2317d4b933f6ed29d8e061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputReader
-  _movement: {fileID: 0}
+  _movement: {fileID: 2060010309}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _inputSourceBehaviour: {fileID: 575329080}
   _movement: {fileID: 2060010309}
+  _jumpBufferTime: 0.1
 --- !u!1 &2060010308
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,6 +801,7 @@ MonoBehaviour:
   _collider2D: {fileID: 932376283}
   _moveSpeed: 6
   _jumpForce: 12
+  _coyoteTime: 0.1
   _groundCheckPoint: {fileID: 244364802}
   _groundCheckSize: {x: 0.96, y: 0.12}
   _groundLayer:

@@ -9,11 +9,17 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     public Transform Character => _character;
     [SerializeField] protected Collider2D _collider2D;
     public Collider2D Collider2D => _collider2D;
+
     [Header("Movement")]
     [SerializeField] protected float _moveSpeed = 6f;
     public float MoveSpeed => _moveSpeed;
     [SerializeField] protected float _jumpForce = 12f;
     public float JumpForce => _jumpForce;
+
+    [SerializeField] protected float _coyoteTime = 0.1f;
+
+    protected float _coyoteCounter;
+
     [Header("Ground Check")]
     [SerializeField] protected Transform _groundCheckPoint;
     [SerializeField] protected Vector2 _groundCheckSize = new Vector2(0.8f, 0.12f);
@@ -22,9 +28,10 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     protected bool _isFacingRight = true;
     public Vector2 Velocity => this._rigidbody2D == null ? Vector2.zero : this._rigidbody2D.linearVelocity;
     public bool IsFacingRight => this._isFacingRight;
-    public bool IsGrounded => this.CheckGrounded();
-    public bool CanJump => this.IsGrounded;
 
+    protected bool _isGrounded;
+    public bool IsGrounded => this._isGrounded;
+    public bool CanJump => this._coyoteCounter > 0f;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -35,7 +42,7 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
 
     protected virtual void FixedUpdate()
     {
-        // Movement is driven by Move so Player, Enemy AI, or teleport/flying variants can decide intent elsewhere.
+        this.UpdateGrounded();
     }
     public virtual void Move(Vector2 direction)
     {
@@ -51,13 +58,31 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
         if (!this.CanJump || this._rigidbody2D == null) return;
         this._rigidbody2D.linearVelocity = new Vector2(this._rigidbody2D.linearVelocity.x, this._jumpForce);
     }
-    protected virtual bool CheckGrounded()
+    protected virtual void UpdateGrounded()
     {
-        Vector2 checkPosition = this._groundCheckPoint == null ? this.transform.position : this._groundCheckPoint.position;
-        return Physics2D.OverlapBox(checkPosition, this._groundCheckSize, 0f, this._groundLayer) != null;
+        Vector2 checkPosition = this._groundCheckPoint == null
+            ? this.transform.position
+            : this._groundCheckPoint.position;
+
+        this._isGrounded = Physics2D.OverlapBox(
+            checkPosition,
+            this._groundCheckSize,
+            0f,
+            this._groundLayer
+        ) != null;
+
+        if (this._isGrounded)
+        {
+            this._coyoteCounter = this._coyoteTime;
+        }
+        else
+        {
+            this._coyoteCounter -= Time.fixedDeltaTime;
+        }
     }
     protected virtual void FaceMoveDirection(float horizontalDirection)
     {
+        if (this._character == null) return;
         if (Mathf.Approximately(horizontalDirection, 0f)) return;
 
         bool shouldFaceRight = horizontalDirection > 0f;
@@ -93,10 +118,5 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
         Vector2 checkPosition = this._groundCheckPoint == null ? this.transform.position : this._groundCheckPoint.position;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(checkPosition, this._groundCheckSize);
-    }
-
-    public void Teleport(Vector2 worldPosition)
-    {
-        throw new System.NotImplementedException();
     }
 }
