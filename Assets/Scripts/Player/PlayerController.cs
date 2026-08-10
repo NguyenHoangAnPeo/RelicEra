@@ -6,12 +6,14 @@ public class PlayerController : BaseMonoBehaviour
     [SerializeField] protected MonoBehaviour _inputSourceBehaviour;
     [SerializeField] protected CharacterMovement _movement;
 
-    protected IMovementInputSource _inputSource;
-
-    [Header("Setting Movement")]
+    [Header("Jump")]
+    [SerializeField, Range(0f, 1f)] protected float _jumpCutMultiplier = 0.5f;
     [SerializeField] protected float _jumpBufferTime = 0.1f;
 
+    protected IMovementInputSource _inputSource;
+
     protected float _jumpBufferCounter;
+    protected bool _wasJumpHeld;
 
     protected override void LoadComponents()
     {
@@ -30,21 +32,19 @@ public class PlayerController : BaseMonoBehaviour
 
     protected virtual void Update()
     {
-        this.HandleMovementInput();
+        if (this._inputSource == null || this._movement == null) return;
+
+        this.HandleJumpInput();
         this.UpdateJumpBuffer();
     }
 
     protected virtual void FixedUpdate()
     {
-        this.ProcessJumpBuffer();
-    }
-
-    protected virtual void HandleMovementInput()
-    {
         if (this._inputSource == null || this._movement == null) return;
 
         this.HandleHorizontalMovement();
-        this.HandleJumpInput();
+        this.ProcessJumpBuffer();
+        this.HandleJumpCut();
     }
 
     protected virtual void HandleHorizontalMovement()
@@ -75,11 +75,20 @@ public class PlayerController : BaseMonoBehaviour
 
     protected virtual void ProcessJumpBuffer()
     {
-        if (_jumpBufferCounter <= 0f) return;
-        if (!_movement.CanJump) return;
+        if (this._jumpBufferCounter <= 0f) return;
+        if (!this._movement.CanJump) return;
 
-        _movement.Jump();
-        _jumpBufferCounter = 0f;
+        this._movement.Jump();
+
+        this._jumpBufferCounter = 0f;
+    }
+
+    protected virtual void HandleJumpCut()
+    {
+        if (this._wasJumpHeld && !this._inputSource.JumpHeld)
+            this._movement.CutJump(this._jumpCutMultiplier);
+
+        this._wasJumpHeld = this._inputSource.JumpHeld;
     }
 
     protected virtual void LoadInputSource()

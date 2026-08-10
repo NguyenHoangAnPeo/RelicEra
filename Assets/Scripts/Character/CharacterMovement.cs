@@ -54,8 +54,9 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     }
     public virtual void Jump()
     {
-        Debug.Log($"CanJump: {CanJump}");
         if (!this.CanJump || this._rigidbody2D == null) return;
+
+        this._coyoteCounter = 0f;
         this._rigidbody2D.linearVelocity = new Vector2(this._rigidbody2D.linearVelocity.x, this._jumpForce);
     }
     protected virtual void UpdateGrounded()
@@ -97,6 +98,17 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     {
         if (this._rigidbody2D == null) return;
         this._rigidbody2D.linearVelocity = new Vector2(0f, this._rigidbody2D.linearVelocity.y);
+    }
+    public virtual void CutJump(float multiplier)
+    {
+        if (this._rigidbody2D == null) return;
+        if (this._rigidbody2D.linearVelocity.y <= 0f) return;
+
+        float clampedMultiplier = Mathf.Clamp01(multiplier);
+        this._rigidbody2D.linearVelocity = new Vector2(
+            this._rigidbody2D.linearVelocity.x,
+            this._rigidbody2D.linearVelocity.y * clampedMultiplier
+        );
     }
     protected virtual void LoadRigibody()
     {

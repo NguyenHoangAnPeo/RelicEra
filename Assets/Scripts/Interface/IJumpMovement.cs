@@ -4,4 +4,5 @@ public interface IJumpMovement
     bool CanJump { get; }
 
     void Jump();
+    void CutJump(float multiplier);
 }
