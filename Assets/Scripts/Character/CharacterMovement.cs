@@ -46,21 +46,28 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     }
     public virtual void Move(Vector2 direction)
     {
-        if (this._rigidbody2D == null) return;
+        if (_rigidbody2D == null) return;
 
-        float dirXClamp = Mathf.Clamp(direction.x, -1f, 1f);
-        Debug.Log("DirClampX: " + dirXClamp);
-        this._rigidbody2D.linearVelocity = new Vector2(dirXClamp * this._moveSpeed, this._rigidbody2D.linearVelocity.y);
-        this.FaceMoveDirection(dirXClamp);
+        float horizontalDirection = 0f;
+
+        if (direction.x > 0f)
+        {
+            horizontalDirection = 1f;
+        }
+        else if (direction.x < 0f)
+        {
+            horizontalDirection = -1f;
+        }
+
+        float horizontalVelocity = horizontalDirection * _moveSpeed;
+
+        _rigidbody2D.linearVelocity = new Vector2(
+            horizontalVelocity,
+            _rigidbody2D.linearVelocity.y
+        );
+
+        FaceMoveDirection(horizontalDirection);
     }
-    //public virtual void Move(Vector2 direction)
-    //{
-    //    if (this._rigidbody2D == null) return;
-
-    //    Vector2 normalizedDirection = direction.sqrMagnitude > 1f ? direction.normalized : direction;
-    //    this._rigidbody2D.linearVelocity = new Vector2(normalizedDirection.x * this._moveSpeed, this._rigidbody2D.linearVelocity.y);
-    //    this.FaceMoveDirection(normalizedDirection.x);
-    //}
     public virtual void Jump()
     {
         if (!this.CanJump || this._rigidbody2D == null) return;
