@@ -5,7 +5,6 @@ public class PlayerController : BaseMonoBehaviour
     [Header("References")]
     [SerializeField] protected MonoBehaviour _inputSourceBehaviour;
     [SerializeField] protected CharacterMovement _movement;
-    [SerializeField] protected MeleeAttackController _meleeAttack;
 
     [Header("Jump")]
     [SerializeField, Range(0f, 1f)] protected float _jumpCutMultiplier = 0.5f;
@@ -23,7 +22,6 @@ public class PlayerController : BaseMonoBehaviour
 
         this.LoadInputSource();
         this.LoadMovement();
-        this.LoadMeleeAttack();
     }
 
     protected override void Awake()
@@ -40,8 +38,6 @@ public class PlayerController : BaseMonoBehaviour
             this.HandleJumpInput();
             this.UpdateJumpBuffer();
         }
-
-        this.HandleAttackInput();
     }
 
     protected virtual void FixedUpdate()
@@ -111,24 +107,6 @@ public class PlayerController : BaseMonoBehaviour
 
     #endregion
 
-    #region Attack
-
-    protected virtual void HandleAttackInput()
-    {
-        if (this._attackInputSource == null)
-            return;
-
-        if (!this._attackInputSource.AttackPressed)
-            return;
-
-        if (this._meleeAttack != null)
-            this._meleeAttack.Attack();
-
-        this._attackInputSource.ConsumeAttack();
-    }
-
-    #endregion
-
     #region Load Components
 
     protected virtual void LoadInputSource()
@@ -147,15 +125,6 @@ public class PlayerController : BaseMonoBehaviour
 
         this._movement =
             GetComponentInChildren<CharacterMovement>();
-    }
-
-    protected virtual void LoadMeleeAttack()
-    {
-        if (this._meleeAttack != null)
-            return;
-
-        this._meleeAttack =
-            GetComponentInChildren<MeleeAttackController>();
     }
 
     #endregion

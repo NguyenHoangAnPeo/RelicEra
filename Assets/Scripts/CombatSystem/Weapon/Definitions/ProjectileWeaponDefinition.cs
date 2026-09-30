@@ -24,4 +24,9 @@ public class ProjectileWeaponDefinition : WeaponDefinition
     [SerializeField] protected float _spreadAngle = 0f;
 
     public float SpreadAngle => _spreadAngle;
+
+    public override IWeaponAttackBehavior CreateAttackBehavior()
+    {
+        return new ProjectileAttackBehavior();
+    }
 }

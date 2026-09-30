@@ -26,4 +26,9 @@ public class MeleeWeaponDefinition : WeaponDefinition
 
     public bool CanCombo => _canCombo;
     public int MaxCombo => _maxCombo;
+
+    public override IWeaponAttackBehavior CreateAttackBehavior()
+    {
+        return new MeleeAttackBehavior();
+    }
 }

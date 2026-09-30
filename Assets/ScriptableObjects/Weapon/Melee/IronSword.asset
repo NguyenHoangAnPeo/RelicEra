@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402129c8a26030a489c7390c436351bc, type: 3}
   m_Name: IronSword
   m_EditorClassIdentifier: Assembly-CSharp::MeleeWeaponDefinition
-  _id: 
-  _weaponName: 
+  _id: 1
+  _weaponName: IronSword
   _icon: {fileID: 0}
   _damage: 10
   _attackCooldown: 0.5

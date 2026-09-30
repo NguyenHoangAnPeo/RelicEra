@@ -23,14 +23,6 @@ public abstract class WeaponDefinition : ScriptableObject
 
     public GameObject WeaponPrefab => _weaponPrefab;
 
-    [Header("Behavior")]
-    [SerializeField] protected WeaponBehaviorType _behaviorType;
-
-    public WeaponBehaviorType BehaviorType => _behaviorType;
-}
-
-public enum WeaponBehaviorType
-{
-    Melee,
-    Projectile
+    //Attack Behaviour
+    public abstract IWeaponAttackBehavior CreateAttackBehavior();
 }
