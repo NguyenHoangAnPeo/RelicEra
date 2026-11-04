@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AttackController : MonoBehaviour
 {
-    [SerializeField] private WeaponDefinition _currentWeapon;
+    [SerializeField] private WeaponDefinitionSO _currentWeapon;
 
     private IWeaponAttackBehavior _attackBehavior;
     private float _nextAttackTime;
@@ -12,7 +12,7 @@ public class AttackController : MonoBehaviour
         SetWeapon(_currentWeapon);
     }
 
-    public void SetWeapon(WeaponDefinition weapon)
+    public void SetWeapon(WeaponDefinitionSO weapon)
     {
         _currentWeapon = weapon;
         _attackBehavior = weapon.CreateAttackBehavior();

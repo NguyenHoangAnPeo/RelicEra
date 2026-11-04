@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class WeaponDefinition : ScriptableObject
+public abstract class WeaponDefinitionSO : ScriptableObject
 {
     [Header("Identity")]
     [SerializeField] protected string _id;

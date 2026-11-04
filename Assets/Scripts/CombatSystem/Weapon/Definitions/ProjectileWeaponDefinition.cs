@@ -4,7 +4,7 @@ using UnityEngine;
     fileName = "ProjectileWeaponDefinition",
     menuName = "Relic Era/Weapons/Projectile Weapon"
 )]
-public class ProjectileWeaponDefinition : WeaponDefinition
+public class ProjectileWeaponDefinition : WeaponDefinitionSO
 {
     [Header("Projectile")]
     [SerializeField] protected GameObject _projectilePrefab;

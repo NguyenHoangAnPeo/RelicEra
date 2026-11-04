@@ -1,4 +1,4 @@
 public interface IWeaponAttackBehavior
 {
-    void Attack(WeaponDefinition weapon);
+    void Attack(WeaponDefinitionSO weapon);
 }

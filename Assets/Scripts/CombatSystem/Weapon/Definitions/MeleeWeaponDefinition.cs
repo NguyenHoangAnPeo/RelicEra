@@ -4,7 +4,7 @@ using UnityEngine;
     fileName = "MeleeWeaponDefinition",
     menuName = "Relic Era/Weapons/Melee Weapon"
 )]
-public class MeleeWeaponDefinition : WeaponDefinition
+public class MeleeWeaponDefinition : WeaponDefinitionSO
 {
     [Header("Melee")]
     [SerializeField] protected Vector2 _hitboxSize = new Vector2(1f, 1f);
