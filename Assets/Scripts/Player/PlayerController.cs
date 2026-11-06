@@ -4,7 +4,12 @@ public class PlayerController : BaseMonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected MonoBehaviour _inputSourceBehaviour;
+
     [SerializeField] protected CharacterMovement _movement;
+    public CharacterMovement Movement => _movement;
+
+    [SerializeField] protected AttackController _attackController;
+    public AttackController AttackController => _attackController;
 
     [Header("Jump")]
     [SerializeField, Range(0f, 1f)] protected float _jumpCutMultiplier = 0.5f;
@@ -22,6 +27,7 @@ public class PlayerController : BaseMonoBehaviour
 
         this.LoadInputSource();
         this.LoadMovement();
+        this.LoadAttackCtrl();
     }
 
     protected override void Awake()
@@ -37,6 +43,7 @@ public class PlayerController : BaseMonoBehaviour
         {
             this.HandleJumpInput();
             this.UpdateJumpBuffer();
+            this.HandleAttackInput();
         }
     }
 
@@ -62,6 +69,16 @@ public class PlayerController : BaseMonoBehaviour
             this._movement.Move(moveDirection);
     }
 
+    #endregion
+    #region Attack
+    protected virtual void HandleAttackInput()
+    {
+        if (this._attackInputSource == null || !this._attackInputSource.AttackPressed)
+            return;
+
+        this._attackController.TryAttack();
+        this._attackInputSource.ConsumeAttack();
+    }
     #endregion
 
     #region Jump
@@ -116,6 +133,11 @@ public class PlayerController : BaseMonoBehaviour
 
         this._inputSourceBehaviour =
             GetComponentInChildren<InputReader>();
+    }
+    protected virtual void LoadAttackCtrl()
+    {
+        if (this._attackController != null) return;
+        this._attackController = transform.GetComponentInChildren<AttackController>();
     }
 
     protected virtual void LoadMovement()
