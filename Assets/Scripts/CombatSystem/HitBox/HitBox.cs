@@ -17,9 +17,9 @@ public abstract class HitBox : BaseMonoBehaviour
 
     protected void DealDamage(Collider2D other)
     {
-        if (other.TryGetComponent<IDamageable>(out var target))
-        {
+        var target = other.GetComponentInParent<IDamageable>()
+          ?? other.GetComponentInChildren<IDamageable>();
+        if (target != null)
             target.TakeDamage(_damage);
-        }
     }
 }
