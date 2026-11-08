@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class ProjectileHitbox : HitBox
 {
+    [SerializeField] protected GameObject _weaponGameObj;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.TryGetComponent<IDamageable>(out _))
-            return;
-
         DealDamage(other);
 
-        Destroy(gameObject);
+        Destroy(_weaponGameObj);
     }
 }
