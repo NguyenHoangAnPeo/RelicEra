@@ -73,7 +73,7 @@ public class PlayerController : BaseMonoBehaviour
     #region Attack
     protected virtual void HandleAttackInput()
     {
-        if (this._attackInputSource == null || !this._attackInputSource.AttackPressed)
+        if (this._attackInputSource == null || this._attackController == null || !this._attackInputSource.AttackPressed)
             return;
 
         this._attackController.TryAttack();

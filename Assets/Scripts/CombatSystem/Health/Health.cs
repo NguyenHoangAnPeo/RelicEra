@@ -15,8 +15,8 @@ public class Health : BaseMonoBehaviour,IDamageable
     }
     public void TakeDamage(float damage)
     {
-        if (_isDead) return;
-        this._currentHealth -= damage;
+        if (_isDead || damage <= 0f) return;
+        this._currentHealth = Mathf.Clamp(this._currentHealth - damage, 0f, this._maxHealth);
 
         if (this._currentHealth <= 0)
         {
