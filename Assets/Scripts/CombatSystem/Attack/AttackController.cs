@@ -2,56 +2,27 @@ using UnityEngine;
 
 public class AttackController : BaseMonoBehaviour
 {
-    [SerializeField] private WeaponDefinitionSO _currentWeapon;
-    [SerializeField] protected HitBox _weaponHitbox;
-    public HitBox WeaponHitbox => _weaponHitbox;
+    [SerializeField] private WeaponController _weaponController;
 
-    private IWeaponAttackBehavior _attackBehavior;
-    private float _nextAttackTime;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        SetWeapon(_currentWeapon);
-    }
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadHitBoxWP();
-    }
-    public void SetWeapon(WeaponDefinitionSO weapon)
-    {
-        _currentWeapon = weapon;
-        _attackBehavior = weapon == null ? null : weapon.CreateAttackBehavior();
+        LoadWeaponController();
     }
 
     public bool TryAttack()
     {
-        if (this._weaponHitbox == null)
-            this.LoadHitBoxWP();
+        if (_weaponController == null)
+            LoadWeaponController();
 
-        if (_currentWeapon == null || _attackBehavior == null || this._weaponHitbox == null)
-        {
-            return false;
-        }
-
-        if (Time.time < _nextAttackTime)
-        {
-            return false;
-        }
-
-        _attackBehavior.Attack(_currentWeapon);
-        this._weaponHitbox.BeginAttack(_currentWeapon.Damage);
-        _nextAttackTime = Time.time + _currentWeapon.AttackCooldown;
-
-        return true;
+        return _weaponController != null && _weaponController.TryAttack();
     }
 
-    #region Load Component
-    protected virtual void LoadHitBoxWP()
+    private void LoadWeaponController()
     {
-        if (this._weaponHitbox != null) return;
-        this._weaponHitbox = transform.GetComponentInChildren<HitBox>();
+        if (_weaponController != null)
+            return;
+
+        _weaponController = GetComponentInChildren<WeaponController>(true);
     }
-    #endregion
 }

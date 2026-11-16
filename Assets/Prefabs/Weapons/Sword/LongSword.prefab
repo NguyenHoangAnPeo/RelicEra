@@ -242,6 +242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7918433706625064741}
+  - component: {fileID: 9100000000000000001}
   m_Layer: 0
   m_Name: LongSword
   m_TagString: Untagged
@@ -266,3 +267,17 @@ Transform:
   - {fileID: 2207590490939531890}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9100000000000000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6684868420424107948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb70ec808e760b84bb7fcced46e54cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+  _weaponData: {fileID: 11400000, guid: b6e51d54a28630f4a81901100387620a, type: 2}
+  _weaponHitbox: {fileID: 1611048468561191062}
