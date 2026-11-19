@@ -29,6 +29,6 @@ public class MeleeWeaponDefinition : WeaponDefinitionSO
 
     public override IWeaponAttackBehavior CreateAttackBehavior()
     {
-        return new MeleeAttackBehavior();
+        return new SwordAttackBehavior();
     }
 }

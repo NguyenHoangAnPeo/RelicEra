@@ -1,7 +1,7 @@
 public class ProjectileAttackBehavior : IWeaponAttackBehavior
 {
-    public void Attack(WeaponDefinitionSO weapon)
+    public bool Attack(WeaponController weaponController)
     {
-        // Projectile attack logic will be implemented here.
+        return false;
     }
 }

@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class WeaponController : BaseMonoBehaviour
 {
-    [SerializeField] private WeaponDefinitionSO _weaponData;
-    [SerializeField] private HitBox _weaponHitbox;
+    [SerializeField] protected WeaponDefinitionSO _weaponData;
+    [SerializeField] protected HitBox _weaponHitbox;
 
     public WeaponDefinitionSO WeaponData => _weaponData;
+    public HitBox WeaponHitbox => _weaponHitbox;
 
-    private IWeaponAttackBehavior _attackBehavior;
-    private float _nextAttackTime;
+    protected IWeaponAttackBehavior _attackBehavior;
+    protected float _nextAttackTime;
 
     protected override void Awake()
     {
@@ -34,14 +35,15 @@ public class WeaponController : BaseMonoBehaviour
         if (_weaponHitbox == null)
             LoadHitBox();
 
-        if (_weaponData == null || _attackBehavior == null || _weaponHitbox == null)
+        if (_weaponData == null || _attackBehavior == null)
             return false;
 
         if (Time.time < _nextAttackTime)
             return false;
 
-        _attackBehavior.Attack(_weaponData);
-        _weaponHitbox.BeginAttack(_weaponData.Damage);
+        if (!_attackBehavior.Attack(this))
+            return false;
+
         _nextAttackTime = Time.time + _weaponData.AttackCooldown;
 
         return true;
