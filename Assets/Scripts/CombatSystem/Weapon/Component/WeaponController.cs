@@ -32,9 +32,6 @@ public class WeaponController : BaseMonoBehaviour
 
     public bool TryAttack()
     {
-        if (_weaponHitbox == null)
-            LoadHitBox();
-
         if (_weaponData == null || _attackBehavior == null)
             return false;
 

@@ -1213,8 +1213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa78a7ca0d911cd459c2349cb79f87c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackController
-  _currentWeapon: {fileID: 11400000, guid: b6e51d54a28630f4a81901100387620a, type: 2}
-  _weaponHitbox: {fileID: 4839105103215808579}
+  _weaponController: {fileID: 4839105103215808580}
 --- !u!4 &1691397621 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7918433706625064741, guid: 2ce475d2b4e73554da9e253903433c01, type: 3}
@@ -1498,17 +1497,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ce475d2b4e73554da9e253903433c01, type: 3}
---- !u!114 &4839105103215808579 stripped
+--- !u!114 &4839105103215808580 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1611048468561191062, guid: 2ce475d2b4e73554da9e253903433c01, type: 3}
+  m_CorrespondingSourceObject: {fileID: 9100000000000000001, guid: 2ce475d2b4e73554da9e253903433c01, type: 3}
   m_PrefabInstance: {fileID: 4839105103215808577}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e00ef7ebcedc546bdef663272a1308, type: 3}
+  m_Script: {fileID: 11500000, guid: fb70ec808e760b84bb7fcced46e54cec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordHitBox
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

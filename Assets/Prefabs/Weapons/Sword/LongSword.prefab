@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2207590490939531890}
-  - component: {fileID: 1611048468561191062}
   m_Layer: 0
   m_Name: WeaponHitBox
   m_TagString: Untagged
@@ -33,21 +32,6 @@ Transform:
   - {fileID: 7805020760291858665}
   m_Father: {fileID: 7918433706625064741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1611048468561191062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3253636941766661334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e00ef7ebcedc546bdef663272a1308, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordHitBox
-  _damage: 0
-  _collider: {fileID: 6641841770606074784}
-  _attackDuration: 0.15
 --- !u!1 &5118433280206586752
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,4 +264,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
   _weaponData: {fileID: 11400000, guid: b6e51d54a28630f4a81901100387620a, type: 2}
-  _weaponHitbox: {fileID: 1611048468561191062}
+  _weaponHitbox: {fileID: 0}
