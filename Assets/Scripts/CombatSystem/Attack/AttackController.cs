@@ -2,15 +2,32 @@ using UnityEngine;
 
 public class AttackController : BaseMonoBehaviour
 {
-    [SerializeField] private WeaponController _weaponController;
+    [SerializeField] private WeaponEquipmentController _weaponEquipmentController;
 
-    public void SetWeaponController(WeaponController weaponController)
+    protected override void LoadComponents()
     {
-        _weaponController = weaponController;
+        base.LoadComponents();
+        LoadWeaponEquipmentController();
     }
 
     public bool TryAttack()
     {
-        return _weaponController != null && _weaponController.TryAttack();
+        WeaponController weaponController = _weaponEquipmentController != null
+            ? _weaponEquipmentController.CurrentWeapon
+            : null;
+
+        return weaponController != null && weaponController.TryAttack();
+    }
+
+    private void LoadWeaponEquipmentController()
+    {
+        if (_weaponEquipmentController != null)
+            return;
+
+        _weaponEquipmentController = GetComponentInParent<WeaponEquipmentController>();
+        if (_weaponEquipmentController != null)
+            return;
+
+        _weaponEquipmentController = transform.root.GetComponentInChildren<WeaponEquipmentController>(true);
     }
 }
