@@ -182,19 +182,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 932376282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2100000001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 279044132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929971f6073fd82418dadbce03229f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponEquipmentController
-  weaponHolder: {fileID: 1742336663}
 --- !u!1 &295248321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,6 +1667,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 932376282}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2100000001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279044132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929971f6073fd82418dadbce03229f2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponEquipmentController
+  weaponHolder: {fileID: 1742336663}
+  _currentWeapon: {fileID: 0}
 --- !u!1001 &4839105103215808577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1756,17 +1757,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e00ef7ebcedc546bdef663272a1308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordHitBox
---- !u!114 &4839105103215808580 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9100000000000000001, guid: 2ce475d2b4e73554da9e253903433c01, type: 3}
-  m_PrefabInstance: {fileID: 4839105103215808577}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb70ec808e760b84bb7fcced46e54cec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
