@@ -18,6 +18,7 @@ public class WeaponEquipmentController : MonoBehaviour
         weapon.transform.SetParent(weaponHolder, false);
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
+        weapon.gameObject.SetActive(true);
     }
 
     public void Unequip()
@@ -25,7 +26,7 @@ public class WeaponEquipmentController : MonoBehaviour
         if (_currentWeapon == null)
             return;
 
-        _currentWeapon.transform.SetParent(null);
+        _currentWeapon.gameObject.SetActive(false);
         _currentWeapon = null;
     }
 }

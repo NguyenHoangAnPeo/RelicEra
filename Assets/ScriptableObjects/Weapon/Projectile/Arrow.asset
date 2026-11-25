@@ -17,8 +17,8 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _damage: 10
   _attackCooldown: 0.5
-  _weaponPrefab: {fileID: 5481107743553194338, guid: 754211877f4a22d4b961b1cb59f6d4bf, type: 3}
-  _projectilePrefab: {fileID: 0}
+  _weaponPrefab: {fileID: 0}
+  _projectilePrefab: {fileID: 5481107743553194338, guid: 754211877f4a22d4b961b1cb59f6d4bf, type: 3}
   _projectileSpeed: 10
   _ammoCount: 1
   _spreadAngle: 0
