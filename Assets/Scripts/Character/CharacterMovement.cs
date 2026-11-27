@@ -51,7 +51,7 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
         base.LoadComponents();
 
         this.LoadRigibody();
-        this.LoadPlayer();
+        this.LoadCharacter();
         this.LoadColider();
     }
 
@@ -63,6 +63,12 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
 
 
     public virtual void Move(Vector2 direction)
+    {
+        this.Move(direction, this._moveSpeed);
+    }
+
+
+    public virtual void Move(Vector2 direction, float speed)
     {
         if (this._rigidbody2D == null) return;
 
@@ -77,7 +83,7 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
             horizontalDirection = -1f;
         }
 
-        float horizontalVelocity = horizontalDirection * this._moveSpeed;
+        float horizontalVelocity = horizontalDirection * Mathf.Max(0f, speed);
 
         this._rigidbody2D.linearVelocity = new Vector2(
             horizontalVelocity,
@@ -179,16 +185,12 @@ public class CharacterMovement : BaseMonoBehaviour, IMovementMotor, IJumpMovemen
     }
 
 
-    protected virtual void LoadPlayer()
+    protected virtual void LoadCharacter()
     {
-        if (this._player != null) return;
+        if (_player != null || _rigidbody2D == null)
+            return;
 
-        PlayerController playerController =
-            transform.GetComponentInParent<PlayerController>();
-
-        if (playerController == null) return;
-
-        this._player = playerController.transform;
+        _player = _rigidbody2D.transform;
     }
 
 

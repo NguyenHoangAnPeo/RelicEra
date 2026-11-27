@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 295248324}
   - component: {fileID: 295248323}
   - component: {fileID: 295248322}
+  - component: {fileID: 295248326}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -346,9 +347,31 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1773456743}
   - {fileID: 1285435747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &295248326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295248321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a022cde080497c74fbaebc57482f6ea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  _target: {fileID: 932376282}
+  _movement: {fileID: 1773456744}
+  _health: {fileID: 1285435748}
+  _patrolDistance: 2
+  _patrolSpeed: 1.5
+  _detectionRange: 3
+  _loseTargetRange: 4.5
+  _chaseSpeed: 4
+  _stopDistance: 0.8
 --- !u!1 &411068468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,6 +1558,61 @@ Transform:
   - {fileID: 1691397621}
   m_Father: {fileID: 1288097068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1773456742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1773456743}
+  - component: {fileID: 1773456744}
+  m_Layer: 0
+  m_Name: EnemyMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1773456743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773456742}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.61, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 295248325}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773456744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773456742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bff3383dc84c97e43b7fc737d5bd6256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMovement
+  _rigidbody2D: {fileID: 295248323}
+  _player: {fileID: 295248325}
+  _collider2D: {fileID: 295248322}
+  _moveSpeed: 6
+  _jumpForce: 12
+  _coyoteTime: 0.1
+  _groundCheckPoint: {fileID: 0}
+  _groundCheckSize: {x: 0.8, y: 0.12}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1999878785
 GameObject:
   m_ObjectHideFlags: 0
