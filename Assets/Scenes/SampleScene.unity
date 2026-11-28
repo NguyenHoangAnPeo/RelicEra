@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 295248323}
   - component: {fileID: 295248322}
   - component: {fileID: 295248326}
+  - component: {fileID: 295248327}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -366,12 +367,33 @@ MonoBehaviour:
   _target: {fileID: 932376282}
   _movement: {fileID: 1773456744}
   _health: {fileID: 1285435748}
+  _enemyPatrol: {fileID: 295248327}
   _patrolDistance: 2
   _patrolSpeed: 1.5
   _detectionRange: 3
   _loseTargetRange: 4.5
   _chaseSpeed: 4
   _stopDistance: 0.8
+--- !u!114 &295248327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295248321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7efc29b3add83e41a189e7edde416c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrol
+  _movement: {fileID: 1773456744}
+  _collider2D: {fileID: 295248322}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  _groundCheckDistance: 0.2
+  _edgeOffset: 0.05
+  _obstacleCheckDistance: 0.1
 --- !u!1 &411068468
 GameObject:
   m_ObjectHideFlags: 0

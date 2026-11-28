@@ -4,8 +4,8 @@ public class EnemyController : BaseMonoBehaviour
 {
     protected enum EnemyState
     {
-        Patrol,
-        Chase
+        Patrol, //Tuan tra
+        Chase   //Duoi theo
     }
 
     [Header("References")]
@@ -17,6 +17,8 @@ public class EnemyController : BaseMonoBehaviour
 
     [SerializeField] protected Health _health;
     public Health Health => _health;
+
+    [SerializeField] protected EnemyPatrol _enemyPatrol;
 
     [Header("Patrol")]
     [SerializeField, Min(0f)] protected float _patrolDistance = 2f;
@@ -47,6 +49,7 @@ public class EnemyController : BaseMonoBehaviour
         base.LoadComponents();
         LoadMovement();
         LoadHealth();
+        LoadEnemyPatrol();
     }
 
     protected override void ResetValue()
@@ -105,6 +108,12 @@ public class EnemyController : BaseMonoBehaviour
 
     protected virtual void Patrol()
     {
+        if (_enemyPatrol != null)
+        {
+            _enemyPatrol.Patrol(_patrolSpeed);
+            return;
+        }
+
         float leftBound = _patrolOrigin.x - _patrolDistance;
         float rightBound = _patrolOrigin.x + _patrolDistance;
 
@@ -148,5 +157,13 @@ public class EnemyController : BaseMonoBehaviour
             return;
 
         _health = GetComponentInChildren<Health>(true);
+    }
+
+    protected virtual void LoadEnemyPatrol()
+    {
+        if (_enemyPatrol != null)
+            return;
+
+        _enemyPatrol = GetComponent<EnemyPatrol>();
     }
 }
